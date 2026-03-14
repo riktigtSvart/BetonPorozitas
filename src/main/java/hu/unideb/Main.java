@@ -1,8 +1,8 @@
 package hu.unideb;
 
+import hu.unideb.report.Reports;
 import hu.unideb.service.BatchProcessor;
 import hu.unideb.service.StatisticsService;
-import hu.unideb.report.PdfReport;
 
 import java.io.File;
 import java.util.List;
@@ -14,16 +14,16 @@ public class Main {
 
         Scanner scanner = new Scanner(System.in);
 
-        // 1️⃣ Mappa elérési út
+        // Mappa elérési út
         System.out.println("Add meg a feldolgozandó mappa elérési útját:");
         String folderPath = scanner.nextLine();
 
-        // 2️⃣ Pixel-to-mm skála
+        // Pixel-to-mm skála
         double scale = 0;
         boolean valid = false;
 
         while (!valid) {
-            System.out.println("Add meg a pixel-to-mm átváltási arányt (pl. 0.1):");
+            System.out.println("Add meg a pixel/mm átváltási arányt (pl. 0.1):");
             String input = scanner.nextLine();
 
             try {
@@ -36,16 +36,16 @@ public class Main {
 
         System.out.println("Feldolgozás indul...");
 
-        // 3️⃣ Batch feldolgozás
+        // Batch feldolgozás
         List<Double> diameters =
                 BatchProcessor.processFolder(folderPath, scale);
 
         if (diameters.isEmpty()) {
-            System.out.println("Nem található feldolgozható kép vagy nem detektált pórust.");
+            System.out.println("Nem található feldolgozható kép, vagy nem detektált pórust.");
             return;
         }
 
-        // 4️⃣ Statisztika
+        // Statisztika
         double avg = StatisticsService.average(diameters);
 
         System.out.println("=================================");
@@ -54,14 +54,14 @@ public class Main {
         System.out.println("=================================");
 
         try {
-            // 5️⃣ CSV export
+            // CSV export
             String csvPath = new File(folderPath, "results.csv").getAbsolutePath();
-            StatisticsService.exportCsv(diameters, csvPath);
+            Reports.exportCsv(diameters, csvPath);
             System.out.println("CSV mentve ide: " + csvPath);
 
-            // 6️⃣ PDF riport
+            // PDF riport
             String pdfPath = new File(folderPath, "report.pdf").getAbsolutePath();
-            PdfReport.generate(pdfPath,
+            Reports.generatePdf(pdfPath,
                     diameters.size(),
                     avg,
                     0); // Porozitás most nincs összesítve batch-ben
@@ -70,7 +70,8 @@ public class Main {
 
         } catch (Exception e) {
             System.out.println("Hiba a riport generálásakor:");
-            e.printStackTrace();
+            System.err.println(e.getMessage());
+            //e.printStackTrace();
         }
 
         System.out.println("Feldolgozás kész.");

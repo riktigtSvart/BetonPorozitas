@@ -2,7 +2,6 @@ package hu.unideb.service;
 
 import hu.unideb.detection.DetectionResult;
 
-import java.io.FileWriter;
 import java.util.List;
 
 public class StatisticsService {
@@ -18,15 +17,4 @@ public class StatisticsService {
         return (r.totalPorusArea / r.imageArea) * 100.0;
     }
 
-    public static void exportCsv(List<Double> diameters,
-                                 String path) throws Exception {
-
-        FileWriter writer = new FileWriter(path);
-        writer.write("Diameter_mm\n");
-
-        for (double d : diameters) {
-            writer.write(d + "\n");
-        }
-        writer.close();
-    }
 }

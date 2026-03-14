@@ -4,10 +4,12 @@ import com.lowagie.text.*;
 import com.lowagie.text.pdf.PdfWriter;
 
 import java.io.FileOutputStream;
+import java.io.FileWriter;
+import java.util.List;
 
-public class PdfReport {
+public class Reports {
 
-    public static void generate(String path,
+    public static void generatePdf(String path,
                                 int count,
                                 double avg,
                                 double porosity)
@@ -20,7 +22,7 @@ public class PdfReport {
         doc.open();
 
         doc.add(new Paragraph(
-                "BETON PÓRUS MINŐSÉGELLENŐRZÉSI RIPORT"));
+                "BETON PÓRUS MINŐSÉGELLENŐRZÉSI JELENTÉS"));
         doc.add(new Paragraph(
                 "Detektált pórusok száma: " + count));
         doc.add(new Paragraph(
@@ -29,5 +31,17 @@ public class PdfReport {
                 "Porozitás (%): " + porosity));
 
         doc.close();
+    }
+
+    public static void exportCsv(List<Double> diameters,
+                                 String path) throws Exception {
+
+        FileWriter writer = new FileWriter(path);
+        writer.write("Diameter_mm\n");
+
+        for (double d : diameters) {
+            writer.write(d + "\n");
+        }
+        writer.close();
     }
 }

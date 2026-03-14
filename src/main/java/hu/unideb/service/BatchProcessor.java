@@ -18,7 +18,7 @@ public class BatchProcessor {
         List<Double> all = new ArrayList<>();
         File dir = new File(folder);
 
-        // 1️⃣ Mappa ellenőrzés
+        // Mappa ellenőrzés
         if (!dir.exists() || !dir.isDirectory()) {
             logger.severe("Hibás vagy nem létező mappa: " + folder);
             return all;
@@ -26,7 +26,7 @@ public class BatchProcessor {
 
         File[] files = dir.listFiles();
 
-        // 2️⃣ Olvashatóság ellenőrzés
+        // Olvashatóság ellenőrzés
         if (files == null) {
             logger.severe("A mappa nem olvasható: " + folder);
             return all;
@@ -64,7 +64,7 @@ public class BatchProcessor {
                     }
 
                 } catch (Exception e) {
-                    logger.log(Level.SEVERE, "Hiba a fájl feldolgozásakor: " + f.getName(), e);
+                    logger.log(Level.SEVERE, "Hiba a file feldolgozásakor: " + f.getName(), e);
                 }
             }
         }
