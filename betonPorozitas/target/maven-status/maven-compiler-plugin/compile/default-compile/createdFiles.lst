@@ -1,0 +1,6 @@
+hu\unideb\detection\PorusDetector.class
+hu\unideb\service\BatchProcessor.class
+hu\unideb\service\StatisticsService.class
+hu\unideb\detection\DetectionResult.class
+hu\unideb\Main.class
+hu\unideb\report\PdfReport.class

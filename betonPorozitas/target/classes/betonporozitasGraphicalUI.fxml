@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox prefHeight="400.0" prefWidth="640.0"
+      xmlns="http://javafx.com/javafx/17"
+      xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="hu.unideb.controller.PorusDetectorController">
+
+  <MenuBar VBox.vgrow="NEVER">
+    <Menu text="File"/>
+    <Menu text="Edit"/>
+    <Menu text="Help"/>
+  </MenuBar>
+
+  <AnchorPane VBox.vgrow="ALWAYS">
+
+    <TextField fx:id="fileLocation"
+               layoutX="37.0" layoutY="45.0"
+               prefWidth="483.0"/>
+
+    <Button fx:id="choose"
+            layoutX="536.0" layoutY="45.0"
+            text="choose"
+            onAction="#handleChoose"/>
+
+    <ImageView fx:id="originalImage"
+               layoutX="37.0" layoutY="98.0"
+               fitWidth="223.0" fitHeight="179.0"
+               preserveRatio="true"/>
+
+    <ImageView fx:id="processedImage"
+               layoutX="297.0" layoutY="98.0"
+               fitWidth="223.0" fitHeight="179.0"
+               preserveRatio="true"/>
+
+    <Button fx:id="execute"
+            layoutX="538.0" layoutY="161.0"
+            text="execute"
+            onAction="#handleExecute"/>
+
+    <TextField fx:id="pxToMm"
+               layoutX="539.0" layoutY="86.0"
+               prefWidth="57.0"
+               promptText="0.1"/>
+
+    <Label layoutX="539.0" layoutY="111.0"
+           text="pixel/mm"/>
+
+    <Label fx:id="result"
+           layoutX="37.0" layoutY="312.0"
+           prefWidth="483.0"/>
+
+  </AnchorPane>
+</VBox>
