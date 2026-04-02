@@ -15,7 +15,6 @@ public class BatchProcessor {
         List<Double> all = new ArrayList<>();
         File dir = new File(folder);
 
-        // Mappa ellenőrzés
         if (!dir.exists() || !dir.isDirectory()) {
             logger.severe("Hibás vagy nem létező mappa: " + folder);
             return all;
@@ -23,7 +22,6 @@ public class BatchProcessor {
 
         File[] files = dir.listFiles();
 
-        // Olvashatóság ellenőrzés
         if (files == null) {
             logger.severe("A mappa nem olvasható: " + folder);
             return all;
@@ -34,7 +32,7 @@ public class BatchProcessor {
         for (File f : files) {
 
             if (!f.isFile()) {
-                continue; // Almappákat kihagyjuk
+                continue;
             }
 
             String name = f.getName().toLowerCase();
@@ -46,7 +44,6 @@ public class BatchProcessor {
                 try {
                     logger.info("Feldolgozás: " + f.getName());
 
-                    // OS-független output path
                     String output = new File(folder, "out_" + f.getName()).getAbsolutePath();
 
                     DetectionResult r = PorusDetector.detect(
@@ -55,7 +52,6 @@ public class BatchProcessor {
                             scale
                     );
 
-                    // Csak diameters ellenőrzés szükséges
                     if (r.diameters != null) {
                         all.addAll(r.diameters);
                     }
