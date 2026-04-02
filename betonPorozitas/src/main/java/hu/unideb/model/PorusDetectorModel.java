@@ -14,10 +14,8 @@ public class PorusDetectorModel {
     }
     Scanner scanner = new Scanner(System.in);
 
-    // Mappa elérési út
     String folderPath = scanner.nextLine();
 
-    // Batch feldolgozás
     public void batchProcessor(Double scale) {
         List<Double> diameters =
                 BatchProcessor.processFolder(folderPath, scale);
@@ -28,28 +26,24 @@ public class PorusDetectorModel {
         }
     }
 
-    // Statisztika
     public void Statistics(List<Double> diameters) {
         double avg = PorusDetector.average(diameters);
 
         try {
-            // CSV export
             String csvPath = new File(folderPath, "results.csv").getAbsolutePath();
             Reports.exportCsv(diameters, csvPath);
             System.out.println("CSV mentve ide: " + csvPath);
 
-            // PDF riport
             String pdfPath = new File(folderPath, "report.pdf").getAbsolutePath();
             Reports.generatePdf(pdfPath,
-                    diameters.size(),   // Összes pórus száma
-                    avg); // Porozitás
+                    diameters.size(),
+                    avg);
 
             System.out.println("PDF riport mentve ide: " + pdfPath);
 
         } catch (Exception e) {
             System.out.println("Hiba a riport generálásakor:");
             System.err.println(e.getMessage());
-            //e.printStackTrace();
         }
     }
 
