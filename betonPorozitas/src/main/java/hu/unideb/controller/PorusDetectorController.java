@@ -66,11 +66,10 @@ public class PorusDetectorController {
             return Double.parseDouble(pxToMm.getText());
         } catch (Exception e) {
             result.setText("Hibás pixel/mm érték!");
-            return 0.1; // default
+            return 0.1;
         }
     }
 
-    // ===== EXECUTE =====
     @FXML
     public void handleExecute(ActionEvent event) {
 
